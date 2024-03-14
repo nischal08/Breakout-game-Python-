@@ -1,6 +1,7 @@
 from turtle import Turtle, Screen
 from ball import Ball
 from striker import Striker
+from brick import Brick
 import time
 
 screen = Screen()
@@ -11,6 +12,10 @@ screen.tracer(0)
 
 ball = Ball()
 striker = Striker()
+
+for i in range(1, 13):
+    for j in range(1, 7):
+        Brick(coordinate=(-420 + i * 70, 35 + j * 40))
 
 screen.listen()
 screen.onkeypress(striker.go_left, "Left")
