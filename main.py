@@ -25,20 +25,23 @@ while game_is_on:
     screen.update()
     ball.move()
 
-    # Detect collision with wall vertically
-    if ball.ycor() > 280 or ball.ycor() < -280:
+    # Detect collision with wall top wall only
+    if ball.ycor() > 280:
         ball.bounce_y()
 
     # Detect collision with wall horizontally
     if ball.xcor() > 380 or ball.xcor() < -380:
         ball.bounce_x()
 
-
     # Detect collision with striker
-    if ball.distance(striker) < 50:
+    if ball.distance(striker) < 50 and ball.ycor() < -200:
         ball.bounce_y()
+
+    # Detect right ball left
+    if ball.ycor() < -280:
+        ball.reset_position()
+        # scoreboard.r_point()
 
 screen.exitonclick()
 
-
-#TODO:  Detect collision with striker is not stable
+# TODO:  Detect collision with striker is not stable
