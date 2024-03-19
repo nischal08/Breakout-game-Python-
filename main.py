@@ -32,8 +32,11 @@ def collision():
         brick_y = brick.ycor()
         distance = abs(ball_x - brick_x) + abs(ball_y - brick_y)
         if distance < 40:
+            # Hide the brick
             brick.hideturtle()
-            screen.update()
+            # Remove the brick from the list
+            all_brick.remove(brick)
+            # Bounce the ball
             ball.bounce_y()
 
 
@@ -64,4 +67,4 @@ while game_is_on:
     collision()
 screen.exitonclick()
 
-# TODO:  Detect collision with striker is not stable
+# TODO:  Detect collision with ball and brick is not stable and going from different direction than it should
