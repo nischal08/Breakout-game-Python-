@@ -1,7 +1,7 @@
 from turtle import Turtle
 
 STICKER_Y_POSITION = -230
-STRIKER_SPEED = 20
+STRIKER_SPEED = 25
 
 
 class Striker(Turtle):
@@ -16,8 +16,10 @@ class Striker(Turtle):
 
     def go_left(self):
         self.penup()
-        self.goto((self.xcor() - STRIKER_SPEED, STICKER_Y_POSITION))
+        if (self.xcor() - STRIKER_SPEED) > (-360):
+            self.goto((self.xcor() - STRIKER_SPEED, STICKER_Y_POSITION))
 
     def go_right(self):
         self.penup()
-        self.goto((self.xcor() + STRIKER_SPEED, STICKER_Y_POSITION))
+        if (self.xcor() + STRIKER_SPEED) < 360:
+            self.goto((self.xcor() + STRIKER_SPEED, STICKER_Y_POSITION))

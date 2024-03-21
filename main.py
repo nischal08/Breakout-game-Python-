@@ -48,7 +48,7 @@ while game_is_on:
     ball.move()
 
     # Detect collision with wall top wall only
-    if ball.ycor() > 280:
+    if ball.ycor() > 300:
         ball.bounce_y()
 
     # Detect collision with wall horizontally
@@ -56,7 +56,8 @@ while game_is_on:
         ball.bounce_x()
 
     # Detect collision with striker
-    if ball.distance(striker) < 50 and ball.ycor() < -200:
+    # if ball.distance(striker) < 50 and ball.ycor() < -200:
+    if ball.ycor() < -200 and (striker.xcor() - 60 < ball.xcor() < striker.xcor() + 60):
         ball.bounce_y()
 
     # Detect right ball left
