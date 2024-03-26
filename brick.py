@@ -10,3 +10,5 @@ class Brick(Turtle):
         self.shapesize(stretch_len=2.7, stretch_wid=1)
         self.penup()
         self.goto(coordinate)
+
+

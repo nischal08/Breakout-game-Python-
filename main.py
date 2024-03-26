@@ -1,8 +1,9 @@
 from turtle import Turtle, Screen
 from ball import Ball
 from striker import Striker
-from brick import Brick
+from bricks import Bricks
 import time
+from scoreboard import ScoreBoard
 
 screen = Screen()
 screen.bgcolor("black")
@@ -10,13 +11,12 @@ screen.setup(width=800, height=600)
 screen.title("Breakout Game")
 screen.tracer(0)
 
+scoreboard = ScoreBoard()
 ball = Ball()
 striker = Striker()
-all_brick = []
-for i in range(1, 13):
-    for j in range(1, 7):
-        all_brick.append(Brick(coordinate=(-420 + i * 70, 35 + j * 40)))
+bricks = Bricks()
 
+bricks.create_bricks()
 screen.listen()
 screen.onkeypress(striker.go_left, "Left")
 screen.onkeypress(striker.go_right, "Right")
@@ -25,17 +25,18 @@ screen.onkeypress(striker.go_right, "d")
 
 
 def collision():
-    for brick in all_brick:
+    for brick in bricks.all_brick:
         ball_x = ball.xcor()
         ball_y = ball.ycor()
         brick_x = brick.xcor()
         brick_y = brick.ycor()
         distance = abs(ball_x - brick_x) + abs(ball_y - brick_y)
         if distance < 40:
+            scoreboard.update_points()
             # Hide the brick
             brick.hideturtle()
             # Remove the brick from the list
-            all_brick.remove(brick)
+            bricks.all_brick.remove(brick)
             # Bounce the ball
             ball.bounce_y()
 
@@ -56,15 +57,16 @@ while game_is_on:
         ball.bounce_x()
 
     # Detect collision with striker
-    # if ball.distance(striker) < 50 and ball.ycor() < -200:
-    if ball.ycor() < -200 and (striker.xcor() - 60 < ball.xcor() < striker.xcor() + 60):
+    # if ball.ycor() < -200 and (striker.xcor() - 60 < ball.xcor() < striker.xcor() + 60):
+    if ball.distance(striker) < 50 and ball.ycor() < -200:
         ball.bounce_y()
 
     # Detect right ball left
     if ball.ycor() < -280:
         ball.reset_position()
         # game_is_on=False
-        # scoreboard.r_point()
+        scoreboard.reset()
+        bricks.create_bricks()
     collision()
 screen.exitonclick()
 
